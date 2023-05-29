@@ -48,7 +48,7 @@ def performanceChecking():
     diskUsed = stat.used/stat.total*100
 
     now = datetime.now()
-    current_time = now.strftime("%Y:%b:%d | %H:%M:%S")
+    current_time = now.strftime("%Y:%m:%d | %H:%M:%S")
 
     if cpu_usage >= 90 or ramUsed >= 90 or diskUsed >= 90:
         makeEmailNotifications(current_time, cpu_usage, ramUsed, diskUsed)
