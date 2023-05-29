@@ -45,24 +45,16 @@ Performance() {
 }
 
 # Performance
+
+while true
+do 
+    Performance
+    sleep 3600
+done
+
+
 # set -a # automatically export all variables
 # source .env
 # set +a
 # echo "$EMAIL_SENDER, $EMAIL_PASSWORD, $EMAIL_RECEIVER"
-# SERVER="smtp.gmail.com"
-# FROM="$EMAIL_SENDER"
-# PASSWORD="$EMAIL_PASSWORD"
-# TO="$EMAIL_RECEIVER"
-# SUBJ="Some subject"
-# MESSAGE="$1, $2"
-# CHARSET="utf-8"
 
-recipient=$EMAIL_RECEIVER
-subject="Test Email"
-body="This is a test email sent using ssmtp."
-
-# Construct the email message
-message="Subject: $subject\n\n$body"
-
-# Send the email using ssmtp
-echo -e "$message" | ssmtp "$recipient"
