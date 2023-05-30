@@ -1,9 +1,23 @@
 #!/bin/bash
 
+
 logFile="log/performance_log.txt"
+date=$(date '+%Y:%m:%d | %H:%M:%S')
+set -a # automatically export all variables
+source .env
+set +a
+# Token=$TELE_TOKEN
+# ID_Admin=$ID_ADMIN
+
+SendNotification() {
+    # url="https://api.telegram.org/bot$TELE_TOKEN/sendMessage\?chat_id\=$ID_ADMIN\&text\=$1"
+    # x="-X"
+    # query=`curl $x POST $url`
+    curl -s --data "text=$1" --data "chat_id=$ID_ADMIN" 'https://api.telegram.org/bot'$TELE_TOKEN'/sendMessage' >> /dev/null
+    # echo $query
+}
 
 WriteIntoFile() {
-    date=$(date '+%Y:%m:%d | %H:%M:%S')
     Notification="$date: CPU: $1%, RAM: $2%,DISK: $3%"
     if [ -e $logFile ] && [ -r $logFile ] && [ -w $logFile ]
     then
@@ -41,20 +55,17 @@ Performance() {
     if [ "$compareMEM" -eq 1 ] || [ "$compareCPU" -eq 1 ] || [ "$compareRAM" -eq 1 ]
     then
         WriteIntoFile $cpu_usage $ram_usage_percent $MemUsagePercent 
+        SendNotification "$date: CPU: $cpu_usage%, RAM: $ram_usage_percent%,DISK: $MemUsagePercent%"
     fi
 }
 
-# Performance
 
-while true
-do 
-    Performance
-    sleep 3600
-done
+# if use cronjob
+Performance
 
-
-# set -a # automatically export all variables
-# source .env
-# set +a
-# echo "$EMAIL_SENDER, $EMAIL_PASSWORD, $EMAIL_RECEIVER"
-
+# if not use cronjob
+# while true
+# do 
+#     Performance
+#     sleep 3600
+# done
