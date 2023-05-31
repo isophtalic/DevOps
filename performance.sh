@@ -1,13 +1,12 @@
 #!/bin/bash
 
-
 logFile="log/performance_log.txt"
 date=$(date '+%Y:%m:%d | %H:%M:%S')
 set -a # automatically export all variables
-source .env
+source pf.conf
 set +a
-# Token=$TELE_TOKEN
-# ID_Admin=$ID_ADMIN
+# echo $TELE_TOKEN
+# echo $ID_ADMIN
 
 SendNotification() {
     # url="https://api.telegram.org/bot$TELE_TOKEN/sendMessage\?chat_id\=$ID_ADMIN\&text\=$1"
