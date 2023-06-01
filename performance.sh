@@ -5,15 +5,11 @@ date=$(date '+%Y:%m:%d | %H:%M:%S')
 set -a # automatically export all variables
 source pf.conf
 set +a
-# echo $TELE_TOKEN
-# echo $ID_ADMIN
+echo $TELE_TOKEN
+echo $ID_ADMIN
 
 SendNotification() {
-    # url="https://api.telegram.org/bot$TELE_TOKEN/sendMessage\?chat_id\=$ID_ADMIN\&text\=$1"
-    # x="-X"
-    # query=`curl $x POST $url`
     curl -s --data "text=$1" --data "chat_id=$ID_ADMIN" 'https://api.telegram.org/bot'$TELE_TOKEN'/sendMessage' >> /dev/null
-    # echo $query
 }
 
 WriteIntoFile() {
@@ -60,11 +56,12 @@ Performance() {
 
 
 # if use cronjob
-Performance
+# Performance
 
 # if not use cronjob
-# while true
-# do 
-#     Performance
-#     sleep 3600
-# done
+while true
+do 
+    echo "Checking . . ." 
+    Performance
+    sleep 3600
+done
